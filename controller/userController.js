@@ -140,7 +140,7 @@ exports.verifyEmail = async (req, res) => {
             return res.status(401).json({message: 'verification link expired'})
         }
     }
-    res.status(500).json({message: 'error verifying user:' + eror.message})
+    res.status(500).json({message: 'error verifying user:' + error.message})
 }
 
 
@@ -274,7 +274,7 @@ exports.changePassword = async (req, res) => {
     try {
         const { oldPassword, newPassword, confirmPassword } = req.body
 
-        const {userId} = req.user
+        const {userId} = req.params
 
         const user = await userModel.findById(userId)
 

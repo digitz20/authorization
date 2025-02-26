@@ -15,7 +15,7 @@ router.post('/resend-verification/forgotpassword', forgotPassword)
 
 router.post('/resend-verification/resetpassword', resetPassword)
 
-router.post('/resend-verification/changepassword', changePassword)
+router.post('/resend-verification/changepassword/:userId', changePassword)
 
 router.post('/makeuseradmin/:userid', makeAdmin)
 
