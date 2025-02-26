@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const { register, login, verifyEmail, resendVerificationEmail,resetPassword, forgotPassword, makeAdmin } = require('../controller/userController')
+const { register, login, verifyEmail, resendVerificationEmail,resetPassword, forgotPassword, changePassword, makeAdmin } = require('../controller/userController')
 
 
 router.post('/register', register)
@@ -15,7 +15,9 @@ router.post('/resend-verification/forgotpassword', forgotPassword)
 
 router.post('/resend-verification/resetpassword', resetPassword)
 
-router.post('/makeuseradmin', makeAdmin)
+router.post('/resend-verification/changepassword', changePassword)
+
+router.post('/makeuseradmin/:userid', makeAdmin)
 
 
 module.exports = router
