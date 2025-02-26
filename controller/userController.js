@@ -38,7 +38,7 @@ exports.register = async (req, res) => {
 
         const link = `${req.protocol}://${req.get('host')}/api/v1/user-verify/${token}`
 
-        const firstName = user.fullName.split(' ')[1]
+        const firstName = newUser.fullName.split(' ')[1]
 
 
         const mailDetails = {
