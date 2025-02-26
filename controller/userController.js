@@ -310,5 +310,29 @@ exports.changePassword = async (req, res) => {
 
 
 
+exports.makeAdmin = async (req, res) => {
+    try {
+        
+        const {userId} = req.params
 
+        const user = await userModel.findById(userId)
+
+        if(!user) {
+            return res.status(404).json({message: 'user not found'})
+        }
+
+        if(user.isAdmin === true) {
+            return res.status(400).json({message: 'user is already an admin'})
+        } 
+
+        user.isAdmin = true
+
+        await user.save()
+
+        res.status(200).json({message: 'user has been made an admin', data: user})
+        
+    } catch (error) {
+        res.status(500).json({message: 'internal server error' + error.message})
+    }
+}
 
