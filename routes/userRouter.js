@@ -1,7 +1,7 @@
 const router = require('express').Router()
 
 const { register, login, verifyEmail, resendVerificationEmail,resetPassword, forgotPassword, changePassword, makeAdmin } = require('../controller/userController')
-
+// const validate = require('../helper/utilities')
 
 router.post('/register', register)
 
@@ -21,3 +21,5 @@ router.post('/makeuseradmin/:userid', makeAdmin)
 
 
 module.exports = router
+
+

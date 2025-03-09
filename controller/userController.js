@@ -3,13 +3,17 @@ const bcrypt = require('bcrypt')
 const sendEmail = require('../middleware/nodemailer')
 const jwt = require('jsonwebtoken')
 const { signUpTemplate, forgotTemplate } = require('../utils/mailTemplates')
+const {validate} = require('../helper/utilities')
+const {registerSchema, loginSchema, verificationEmailSchema} = require('../validation/user')
 
 
 
 exports.register = async (req, res) => {
     try {
-
-        const {fullName, email, gender, password, username } = req.body
+        
+        const validated = await validate(req.body , registerSchema)
+        
+        const {fullName, email, gender, password, username } = validated
 
         const user = await userModel.findOne({ email: email.toLowerCase()})
 
@@ -55,7 +59,7 @@ exports.register = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({message: 'internal server error'})
+        res.status(500).json({message: 'internal server error',  error: error.message})
         
     }
 }
@@ -65,7 +69,9 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        const {email, password, username} = req.body
+        const validated = await validate(req.body , loginSchema)
+
+        const {email, password, username} = validated
 
         if(!email && !username) {
             return res.status(400).json({message: 'please enter either email or username'})    
@@ -98,7 +104,7 @@ exports.login = async (req, res) => {
 
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({message: 'internal server error'})
+        res.status(500).json({message: 'internal server error' , error: error.message})
     }
 }
 
@@ -149,7 +155,9 @@ exports.verifyEmail = async (req, res) => {
 exports.resendVerificationEmail = async (req, res) => {
     try {
         
-        const {email} = req.body
+        const validated = await validate(req.body , verificationEmailSchema)
+
+        const {email} = validated
 
         if(!email) {
             return res.status(400).json({message: 'please enter email address'})

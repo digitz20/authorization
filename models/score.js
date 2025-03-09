@@ -13,7 +13,7 @@ const scoreSchema = new mongoose.Schema({
     userId: { type: mongoose.SchemaTypes.ObjectId, ref: 'Users', required: true},
     name: { type: String, required: true }
 
-}, { timeseries: true})
+}, { timestamps: true})
 
 const scoreModel = mongoose.model('Scores', scoreSchema)
 
